@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">	
+		<title>Wechat JSSKS</title>
+		<style>
+			body {
+				font-family: "微软雅黑";
+				-webkit-font-smoothing: antialiased;
+				padding: 20px;
+			}	
+			button {
+				width: 100%;
+				height: 60px;
+				line-height: 60px;
+				font-size: 20px;
+				font-weight: 500;
+				background: #006600;
+				border-radius: 8px;
+				color: #fff;
+				border: none;
+				cursor: pointer;
+				-webkit-transition: background-color 1s;
+				margin-bottom: 10px;
+			}
+			button:hover {
+				background: #666;
+				color: #000;
+			}
+		</style>
+	</head>
+	<body>
+		<button id="hideOptionMenu">隐藏菜单</button>
+		<button id="scanQRCode">调用扫一扫</button>
+		<button id="getNetworkType">获取网络接口</button>
+		<button id="onMenuShareTimeline">获取自定义分享到朋友圈功能</button><!--需要域名备案-->
+		<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+		<script>
+			wx.config({
+				debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+				appId: "{$wx['appId']}", // 必填，公众号的唯一标识
+				timestamp: "{$wx['timestamp']}" , // 必填，生成签名的时间戳
+				nonceStr: "{$wx['nonceStr']}", // 必填，生成签名的随机串
+				signature: "{$wx['signature']}",// 必填，签名，见附录1
+				jsApiList: ['hideOptionMenu', 'scanQRCode', 'onMenuShareAppMessage']
+			});
+			wx.ready(function(){
+				
+			});
+			document.querySelector('#hideOptionMenu').onclick = function(){
+				wx.hideOptionMenu({
+					success:function(){
+						alert('菜单已经被隐藏');
+					}
+				});
+			}
+			document.querySelector('#getNetworkType').onclick = function(){
+				wx.getNetworkType({
+					success:function(res){
+						alert(res.networkType);
+					}
+				});
+			}
+			document.querySelector('#scanQRCode').onclick = function(){
+				wx.scanQRCode({
+					needResult: 0, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
+				    scanType: ["qrCode","barCode"], // 可以指定扫二维码还是一维码，默认二者都有
+				    success: function (res) {
+				    var result = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
+					}
+				});
+			}
+			document.querySelector('#onMenuShareTimeline').onclick = function(){
+				wx.onMenuShareAppMessage({
+				      title: '这是一个微信JSSDK的分享链接测试',
+				      link: 'http://our-class.cn',
+				      imgUrl: 'http://our-class.cn/Public/UserIcon/weichat.png',
+				      trigger: function (res) {
+				        // 不要尝试在trigger中使用ajax异步请求修改本次分享的内容，因为客户端分享操作是一个同步操作，这时候使用ajax的回包会还没有返回
+				        alert('用户点击分享到朋友圈');
+				      },
+				      success: function (res) {
+				        alert('已分享');
+				      },
+				      cancel: function (res) {
+				        alert('已取消');
+				      },
+				      fail: function (res) {
+				        alert(JSON.stringify(res));
+				      }
+				    });
+				    alert('已注册获取“分享到朋友圈”状态事件');
+			}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,15 @@
+html {
+	width: 100%;
+	height: 100%;
+}
+
+body {
+	width: 100%;
+	height: 100%;
+	color: #505050;
+	background: #ebebeb;
+	padding-bottom: 70px;
+
+}
+
+ul, li, h1, h2, h3, h4, h5, h6, h7, p, span, ol, dt, dd, ul, div, a{margin: 0;padding: 0;}	

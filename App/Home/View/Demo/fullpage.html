@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<link href="https://cdn.bootcss.com/fullPage.js/2.7.6/jquery.fullPage.min.css" rel="stylesheet">
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			#fullpage {
+				max-width: 640px;
+				position: relative;
+			}
+			#chevro {
+				width: 85px;
+				height: 85px;
+				background: url(../../../../Public/Img/fullpage/iconfont-chevronup.svg) no-repeat ;
+				background-size: 100px 100px;
+				position: absolute;
+				bottom: 10px;
+				left: 50%;
+				margin-left: -42.5px;
+			}
+			@-webkit-keyframes chevro-move{
+				0%{
+					-webkit-transform: translate3d(0, 0, 0);opacity: 0;
+					}
+				50%{
+					-webkit-transform: translate3d(0, -40px, 0);opacity: 1;
+				}	
+				100%{
+					-webkit-transform: translate3d(0, 0, 0);opacity: 0;
+					}
+			}
+			.chevro-move {
+				-webkit-animation: chevro-move 2s infinite;
+			}
+			.content {
+				position: absolute;
+				left: 2%;
+				bottom: 2%;
+				width: 86%;
+				height: 40%;
+				background: rgba(255,255,255,.7);
+				padding: 2% 5%;				
+			}
+			.content h3 {
+				font-size: 5em;
+				color: rgb(182, 27, 82);
+			}
+			.content span {
+				display: block;
+				font-size: 2.5em;
+			}
+			.pic1 span {
+				color: rgb(182, 27, 82);
+			} 
+			#section0, #section1, #section2, #section3, #section4, #section5 {
+				-webkit-background-size: cover;
+			    -moz-background-size: cover;
+			    -o-background-size: cover;
+			    background-size: cover;
+			}
+			#section0 {
+				background: url(../../../../Public/Img/fullpage/1.jpg) no-repeat;
+			}
+			#section1 {
+				background: url(../../../../Public/Img/fullpage/2.jpg) no-repeat;
+			}
+			#section2 {
+				background: url(../../../../Public/Img/fullpage/3.jpg) no-repeat;
+			}
+			#section3 {
+				background: url(../../../../Public/Img/fullpage/4.jpg) no-repeat;
+			}
+			#section4 {
+				background: url(../../../../Public/Img/fullpage/5.jpg) no-repeat;
+			}
+			#section5 {
+				background: url(../../../../Public/Img/fullpage/6.png) no-repeat;
+			}															
+		</style>
+	</head>
+	<body>
+		<div id="fullpage">
+			<div class="section active" id="section0">
+				<div class="content pic1">
+					<h3>听说自拍能赢韩国游</h3>
+					<span>与泡菜、烤肉、石锅饭亲密接触</span>
+					<span>在圣诞折扣季添置心仪的新年礼物</span>
+					<span>和TA在韩国的海滩许下一个一生一世的誓言</span>
+					<span>........</span>
+					<span>十二月约上你的女神去韩国吧！</span>
+				</div>
+			</div>
+			<div class="section" id="section1">
+				<div class="content">
+					<h3>活动参与须知</h3>
+					<span>
+						1.在应用市场或App Store搜索“城”或“城city”并下载APP，在“遇见板块发布自己的一张自拍照，选取活动主题“女神驾到”的水印并上传；
+					</span>
+					<span>
+						2.上传成功后将自己参与活动的页面发送给亲友来为你点赞，点赞数量多者可以上首页马蜂窝
+					</span>
+					<span>3.获奖条件：当女神照片出现在“城”APP首页，即可获奖！共8个名额</span>
+				</div>
+			</div>
+			<div class="section" id="section2">
+				<div class="content">
+					<h3>活动参与细则</h3>
+					<span>
+						一、 活动截止时间为2015年12月21日17:00，“城”APP的工作人员将进行多次截图留档后上传至广场页及发现版块活动软文中进行公示；如遇到点赞数一致，将按照首页蜂巢排序里的截图为准。
+					</span>
+					<span>
+						二、每个用户仅可获得一次中奖机会。活动截止后的1-2个工作日内，“城”APP的工作人员将会与获奖的用户沟通领奖事宜。
+					</span>
+				</div>
+
+			</div>
+			<div class="section" id="section3">
+				<div class="content">
+					<div id="">
+						<span>奖项</span>
+						<span>设置</span>
+					</div>
+					<div>
+						<span>
+							按照活动人气，排名前八位的女神，可获得由“城”APP提供的韩国济州岛4日游！
+						</span>
+						<span>
+							第一名：双人济州岛4日游（或价值2600元的旅游基金）
+						</span>
+						<span>
+							第二名—第八名：单人济州岛4日游（或价值1300元的旅游基金）
+						</span>
+					</div>
+				</div>
+			</div>
+			<div class="section" id="section4">
+				<div class="content">
+					<h3>关于“城”APP</h3>
+					<span>
+						“城”是当下最时尚的集交友、活动、购物于一体的社交平台。
+					</span>
+					<span>
+						在这里，你可以遇见那个TA
+					</span>
+					<span>
+						在这里，你可以获取一手资讯
+					</span>
+					<span>
+						在这里，你可以赶上大众创业
+					</span>
+					<span>
+						在这里，你可以丰富网络人脉
+					</span>
+					<span>
+						来“城”里，我们等着你！
+					</span>
+					<span>
+						更多精彩活动即将开启！
+					</span>
+					<span>
+						因为你，爱上这座城！
+					</span>
+				</div>
+			</div>
+			<div class="section" id="section5">
+			</div>
+			<div id="chevro" class="chevro-move"></div>
+		</div>
+		<script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+		<script src="https://cdn.bootcss.com/fullPage.js/2.7.6/jquery.fullPage.min.js"></script>
+		<script>
+			$(function(){
+				//显示图片
+				showImg();
+				$(window).resize(function(){
+					showImg();
+				});
+				
+				
+				
+				function showImg()
+				{
+					var w = $(window).width();
+					var h = $(window).height();
+					$img = $('.section canvas');
+					$img.each(function(){
+						var self = this;
+						var ctx = $(this)[0].getContext("2d");
+						$imgObj = new Image();
+						$imgObj.src = $(this).attr('data-src');
+						$imgObj.onload = function(){
+							self.width = w;
+							self.height = h;
+							ctx.drawImage(this, 0, 0, self.width, self.height);
+						}
+					});
+				}
+
+			});
+			
+			
+			
+			
+			$('#fullpage').fullpage({
+				menu: '#chevro',
+			});
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		</script>
+	</body>
+</html>

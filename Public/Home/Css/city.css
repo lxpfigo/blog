@@ -1,0 +1,293 @@
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			html {
+				width: 100%;
+				height: 100%;	
+				overflow-x: hidden;
+			}
+			body {
+				max-width: 540px;
+				margin: 0 auto;
+				font-size: 14px;
+				height: 100%;
+				-webkit-font-smoothing: antialiased;		
+				background: #ebebeb;	
+			}
+			#header {
+				width: 100%;
+				height: 40%;
+				background: rgb(80, 94, 127);
+				text-align: center;
+				-webkit-transform-style: preserve-3d;
+				transform-style: preserve-3d;
+			}
+			#logo {
+				display:inline-block;
+				height: 60%;
+				margin-top: 5%;
+				-webkit-transform-style: preserve-3d;
+				transform-style: preserve-3d;
+			}
+			.city {
+				margin-top: 8%;
+				height: 20%;
+				line-height: 20%;
+				font-size: 28px;
+				color: #fff;
+				opacity: 0;
+			}
+			#context {
+				width: 100%;
+				height: 40%;
+				text-align: center;
+				padding: 5% 0;
+				-webkit-transform-style: preserve-3d;
+				transform-style: preserve-3d;				
+			}
+			#context p{
+				width: 100%;
+				height: 16%;	
+				font-size: 18px;
+				overflow: hidden;
+			}
+			#down {
+				height: 6%;
+				padding: 1% 0;
+				-webkit-transform-style: preserve-3d;
+				transform-style: preserve-3d;				
+			}
+			#btn {
+				display: block;
+				width: 90%;
+				height: 100%;
+				margin: 2% auto;	
+				border: 1px solid transparent;	
+			    font-size: 14px;
+			    text-align: center;
+			    border-radius: 1.2rem;
+			    color: #666;
+			    background-color: #fff;
+			    border-color: #999;
+			    transition: all 1s ease-in;
+			    -webkit-transition: all 1s;
+			    margin-bottom: 3%;
+			    cursor: pointer;
+			}
+			/*按键动画*/
+			@-webkit-keyframes btn-move{
+				from{
+					-webkit-transform: scale3d(.1, .1, .1);
+				}
+				to{
+					-webkit-transform: scale3d(1, 1, 1);
+				}
+			}
+			@keyframes btn-move{
+				from{
+					transform: scale3d(.1, .1, .1);
+				}
+				to{
+					transform: scale3d(1, 1, 1);
+				}
+			}			
+			.btn-init {
+				opacity: 0;
+			}
+			.btnshow {
+				-webkit-animation: btn-move 2s;
+				animation: btn-move 2s;
+				opacity: 1;
+			}
+			@-webkit-keyframes imgLogo{
+				/*from{
+					-webkit-transform: translate3d(-800px,0, 0) rotate3d(0, 0, 1, 1deg);
+					opacity: 0;
+				}
+				to{
+					-webkit-transform: translate3d(0,0, 0) rotate3d(0, 0, 1, 1440deg);
+					opacity: 1;
+				}*/
+				from{
+					-webkit-transform: rotate(0deg) translateX(-1000px);
+					opacity: 0;
+				}
+				to {
+					-webkit-transform:  rotate(360deg) translateX(0);
+					opacity: 1;
+				}
+			}
+			@keyframes imgLogo{
+				from{
+					transform: rotate(0deg)  translateX(-1000px);
+					opacity: 0;
+					/*transform: translate3d(-800px,0, 0) rotate3d(0, 0, 1, 0);
+					opacity: 0;*/
+				}
+				to{
+					/*transform: translate3d(0,0, 0) rotate3d(0, 0, 1, 1440deg);
+					opacity: 1;*/
+					transform: rotate(360deg)  translateX(0);
+					opacity: 1;					
+				}
+			}
+			.imgLogo {	
+				-webkit-transform-origin: center;
+				transform-origin: center;
+				-webkit-animation: imgLogo 2s;
+				animation: imgLogo 2s;
+			}
+			/*文字*/
+			@-webkit-keyframes textLogo{
+				0%{
+					-webkit-transform: translate3d(400px,0, 0);		
+				}
+				80% {
+					-webkit-transform: translate3d(-50px,0, 0);
+				}
+				85% {
+					-webkit-transform: translate3d(50px,0, 0);
+				}	
+				90% {
+					-webkit-transform: translate3d(-25px,0, 0);
+				}		
+				95% {
+					-webkit-transform: translate3d(25px,0, 0);
+				}												
+				100%{
+					-webkit-transform: translate3d(0,0, 0);
+				}
+			}
+			@keyframes textLogo{
+				0%{
+					transform: translate3d(400px,0, 0);			
+				}
+				80% {
+					transform: translate3d(-50px,0, 0);
+				}
+				85% {
+					transform: translate3d(50px,0, 0);
+				}	
+				90% {
+					transform: translate3d(-25px,0, 0);
+				}		
+				95% {
+					transform: translate3d(25px,0, 0);
+				}												
+				100%{
+					transform: translate3d(0,0, 0);
+				}
+			}
+			.textLogo {
+				-webkit-animation: textLogo 2s ease-in-out;
+				animation: textLogo 2s ease-in-out;
+				opacity: 1;
+			}
+			#popup {
+				width: 90%;
+				height: 10%;
+				background: #999;
+				color: #FFFFFF;
+				padding: 2% 5%;
+				position: absolute;
+				top: 0;
+				left: 0;
+				opacity: 0.9;
+			}
+			#popup span {
+				display: block;
+				height: 50%;
+			}
+			#popup img {
+				display: block;
+				width: 2.2rem;
+				position: absolute;
+				top: 8%;
+				right: 4%;				
+			}
+
+			/*弹出框动画*/
+			@-webkit-keyframes pop-move{
+				0%{
+					-webkit-transform: translate3d(0, 600%, 0);
+				}
+				50%{
+					-webkit-transform: translate3d(0, 0, 0);
+				}
+				60%{
+					-webkit-transform: translate3d(0, 300%, 0);
+				}
+				70%{
+					-webkit-transform: translate3d(0, 0, 0);
+				}		
+				70%{
+					-webkit-transform: translate3d(0, 150%, 0);
+				}	
+				80%{
+					-webkit-transform: translate3d(0, 0, 0);
+				}	
+				90%{
+					-webkit-transform: translate3d(0, 75%, 0);
+				}															
+				100%{
+					-webkit-transform: translate3d(0, 0, 0);
+				}
+			}
+			@keyframes pop-move{
+				0%{
+					transform: translate3d(0, 600%, 0);
+				}
+				50%{
+					transform: translate3d(0, 0, 0);
+				}
+				60%{
+					transform: translate3d(0, 300%, 0);
+				}
+				70%{
+					transform: translate3d(0, 0, 0);
+				}		
+				70%{
+					transform: translate3d(0, 150%, 0);
+				}	
+				80%{
+					transform: translate3d(0, 0, 0);
+				}	
+				90%{
+					transform: translate3d(0, 75%, 0);
+				}															
+				100%{
+					transform: translate3d(0, 0, 0);
+				}
+			}			
+			.pop-move-do {
+				-webkit-animation: pop-move 2s ease-out;
+				animation: pop-move 2s ease-out;
+			}
+			@-webkit-keyframes spin {
+			  0% {
+			    -webkit-transform: rotate(0deg);
+			    transform: rotate(0deg);
+			  }
+			  100% {
+			    -webkit-transform: rotate(359deg);
+			    transform: rotate(359deg);
+			  }
+			}
+			@keyframes spin {
+			  0% {
+			    -webkit-transform: rotate(0deg);
+			    transform: rotate(0deg);
+			  }
+			  100% {
+			    -webkit-transform: rotate(359deg);
+			    transform: rotate(359deg);
+			  }
+			}		
+			.refresh {
+			  -webkit-animation: spin 2s infinite linear;
+			  animation: spin 2s infinite linear;
+			}
+			#hide-icon {
+				display: none;
+			}

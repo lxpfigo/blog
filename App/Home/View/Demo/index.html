@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<title>爱上这座 | 城</title>
+		<link rel="stylesheet" href="{$APP}/Public/Home/Css/city.mini.css" />
+		<script>
+			var url = "{$APP}/Public/"
+		</script>
+	</head>
+	<body>
+		<div id="hide-icon"><img src="{$APP}/Public/Img/icon.png" width="300" height="300"></div>	<!--微信分享头像-->
+		<section id="header">
+			<canvas id="logo" class="imgLogo"></canvas>
+			<p class="city">城</p>
+		</section>
+		<section id="context">
+			<p>这座城市很熟悉</p>
+			<p>熟悉到你一个人做完所有事</p>		
+			<p>这座城市很陌生</p>		
+			<p>陌生的你一个人无从选择</p>		
+			<p>感受这座城市独特的体温</p>		
+		  	<p>从别样的视角发现这座城市的魅力</p>		
+			<p>因为你，爱上这座城市</p>				
+		</section>
+		<section id="down">
+			<button id="btn" class="btn-init">
+				<img src="{$APP}/Public/Img/iconfont-down.svg" style="width: 1rem;margin-right: .5rem;" />
+				下载				
+			</button>
+		</section>
+	<script>
+			//配置参数
+			var appstore = false;//初始化是否上线
+			var androidTest = 'http://api.chenglive.com:443/download/City_signed.apk';//安卓测试版
+			var androidFinal = '#';//安卓上线版本 应用宝地址
+            var iosTest = 'itms-services://?action=download-manifest&url=https://code.csdn.net/longruntech/cheng/blob/master/FreeLucky.plist';//ios企业版下载地址
+            var iosFinal = 'https://itunes.apple.com/cn/app/fu-yun-le-a/id660678116?mt=8';//ios企业版下载地址
+	</script>
+	<script type="text/javascript" src="{$APP}/Public/Home/Js/city.mini.js" ></script>
+	</body>
+</html>

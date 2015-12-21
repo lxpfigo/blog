@@ -1,0 +1,106 @@
+$(function(){
+	if($('#lists').children('li').length == 0){
+		$('#load-more').attr('disabled', 'disabled');
+	}
+	var p = 1;
+	var search = $('input[name = search]').val();
+	loadArticle(p, ajaxIndex, linkUrl, search);
+	$('#load-more').click(function(){
+		p++;
+		loadArticle(p, ajaxIndex, linkUrl, search);
+	});
+	
+	
+	//搜索按钮
+	$('#search').click(function(e){
+		e.preventDefault();//阻止默认行为
+		search = $('input[name = search]').val();
+		$('#lists').children('li, h4').remove();
+		$('#lists').append('<h4 style="margin:.2rem 0 .4rem">以下文章标题带有关键字:&nbsp<font style="color:#e67e22">'+ search +'</font></h4>');
+		loadArticle(p, ajaxIndex, linkUrl, search);
+	});
+		
+	//导航
+	var li = $('#menu ul li:not(:first-child)');
+		li.click(function(e){
+			e.preventDefault();
+			$('#lists').children('li, h4').remove();
+			$(this).children('a').addClass('a-active');
+			$(this).siblings('li').children('a').removeClass('a-active');
+			var id = $(this).children('a').attr('aid');
+			loadArticle(p, ajaxIndex, linkUrl, search, id);
+		})
+	
+	$('.tag a').click(function(e){
+		e.preventDefault();
+		$('#lists').children('li, h4').remove();
+		var aid = $(this).attr('aid');
+		loadArticle(p, ajaxIndex, linkUrl, search, aid);
+		
+	})
+	
+	
+	function loadArticle(p, ajaxIndex, linkUrl, search, id){
+			var more = $('#load-more');
+			more.html('<i class="fa fa-spinner fa-spin fa-lg fa-fw"></i>  数据加载中。。。请稍候').attr('disabled', 'disabled').css('color', '#e67e22');
+			$.ajax({
+				type:"post",
+				url:ajaxIndex,
+				data:{'p': p, 'search':search, 'id':id},
+				dataType: 'json',
+				success: function(data){
+					if(data.status == 1){
+						more.html('<i class="fa fa-refresh"></i> 加载更多').removeAttr('disabled').removeClass('color'); 
+					}else{
+						more.html('<i class="fa fa-coffee fa-large"></i>  没有更多文章，休息一下吧！').removeClass('color')
+						.css('color', '#D7D7D7');
+					}
+					//加载数据
+					var lists = '';
+					$.each(data.data, function(index, v) {
+					lists += '<li id="list">' +
+							'<h3><a href="'+ linkUrl + v.article_id +'.html" target="_blank">' + v.title + '</a></h3>' +
+									'<div class="article-mete">' +
+										'<span><i class="fa fa-clock-o"></i>&nbsp;'+ v.createtime +'</span>' +
+										'<span><i class="fa fa-eye"></i>&nbsp;'+ v.clicked +'</span>' +
+										'<span><i class="fa fa-comments"></i>&nbsp;'+ v.commentinfo +'次评论</span>' +
+									'</div>' +
+									'<img src="'+ v.title_img +'" />' +
+									'<p>'+ v.description +'</p>' +
+									'<a href="'+ linkUrl + v.article_id +'.html" target="_blank" class="btn btn-default my-btn" target="_blank">阅读全文</a>' +		
+									'<hr />' +
+									'<footer>' +
+										'<span class="fa fa-tags">&nbsp;&nbsp;</span>';
+										
+										$.each(v.taginfo, function(indexv, vv) {
+											lists += '<a href="javascript:void(0)">' + vv.describe_info + '  </a>';
+										});										
+
+									lists += '</footer>'
+									if(v.is_top == 1){
+										lists += '<div class="for">' +
+													'<i class="fa fa-star fa-spin"></i>' +
+												  '</div>';
+												  }
+						lists +='</li>';
+						if(data.data.length == 0){
+							more.html('<i class="fa fa-coffee fa-large"></i>  没有更多文章，休息一下吧！').removeClass('color')
+						}
+						if(data.status == 1){
+						more.html('<i class="fa fa-refresh"></i> 加载更多').removeAttr('disabled').removeClass('color').css('color', '#D7D7D7'); 
+					}else{
+						more.html('<i class="fa fa-coffee fa-lg"></i>  没有更多文章，休息一下吧！').removeClass('color')
+						.css('color', '#D7D7D7');
+					}
+					});
+					$('#lists').append(lists);
+					
+				},error:function(){
+					p--
+					more.html('<i class="fa fa-refresh"></i> 网络错误，请重试').removeAttr('disabled').css('color', '#fff');				
+				}
+			});
+			
+	
+	}
+});

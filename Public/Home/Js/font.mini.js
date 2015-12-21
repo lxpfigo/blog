@@ -1,0 +1,1 @@
+loadFont();function loadFont(){var a=document.getElementsByTagName("html")[0];var b=document.body.clientWidth||document.documentElement.clientWidth;if(b<768){a.style.fontSize=(b/768)*100*1.75+"px"}else{a.style.fontSize=100+"px"}}window.onresize=function(){loadFont()};

@@ -1,0 +1,19 @@
+.page{
+	text-align: center;
+}
+.page a, .current{
+	display: inline-block;
+	width: 35px;
+	height: 35px;
+	line-height: 35px;
+	font-size: 18px;
+	margin-right: 5px;
+}
+.current{
+	color: #fff;
+	background: rgb(51, 122, 183);
+	font-weight: bold;
+}
+.page a:hover{
+	text-decoration: none;
+}

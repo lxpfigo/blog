@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			* {
+				margin: 0;padding: 0;
+			}
+			.box {
+				width: 520px;
+				height: 280px;
+				margin: 120px auto;
+				position: relative;
+				overflow: hidden;
+				backface-visibility: hidden
+			}
+			.context {
+				height: 280px;
+				width: 3640px;
+				position: absolute;
+				top: 0;
+				cursor: pointer;
+			}
+			.context canvas {
+				display: block;
+				float: left;
+				z-index: 1;
+			}
+			.prev, .next {
+				position: absolute;
+				top: 50%;
+				margin-top: -20px;
+				width: 40px;
+				height: 40px;
+				background: #666;
+				opacity: .7;
+				font-size: 20px;
+				text-align: center;
+				line-height: 40px;
+				color: #fff;
+				cursor: pointer;
+				-webkit-transition: all 1s;
+				transition: all 1s;
+			}
+			.prev {
+				left: 0;
+			}
+			.next {
+				right: 0;
+			}
+			.prev:hover, .next:hover {
+				background: blue;
+				opacity: .5;
+			}
+			.transtion {
+				-webkit-transition: all .5s;
+				transition: all .5s;
+			}
+			.btns {
+				width: 100%;
+				height: 40px;
+				line-height: 40px;
+				background: #666;
+				opacity: .3;
+				position: absolute;
+				bottom: 0;
+				text-align: center;
+				padding-left: 182.5px;
+			}
+			.btns > span {
+				/*display: block;*/
+				width: 15px;
+				height: 15px;
+				border-radius: 50%;
+				background: #fff;
+				cursor: pointer;
+				float: left;
+				margin-top: 12.5px;
+				margin-right: 20px;
+			}			
+			span.on {
+				background: darkred;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<div class="context" id="context">
+				<canvas data-src="{$APP}/Public/Img/carousel/5.jpg" width="520" height="280"></canvas>
+				<canvas data-src="{$APP}/Public/Img/carousel/1.jpg" width="520" height="280"></canvas>
+				<canvas data-src="{$APP}/Public/Img/carousel/2.jpg" width="520" height="280"></canvas>
+				<canvas data-src="{$APP}/Public/Img/carousel/3.jpg" width="520" height="280"></canvas>
+				<canvas data-src="{$APP}/Public/Img/carousel/4.jpg" width="520" height="280"></canvas>
+				<canvas data-src="{$APP}/Public/Img/carousel/5.jpg" width="520" height="280"></canvas>
+				<canvas data-src="{$APP}/Public/Img/carousel/1.jpg" width="520" height="280"></canvas>
+			</div>
+			<div class="btns" id="btns">
+				<span data-index="1" class="on"></span>
+				<span data-index="2"></span>
+				<span data-index="3"></span>
+				<span data-index="4"></span>
+				<span data-index="5"></span>
+			</div>
+				<span class="prev" id="prev">&lt;</span>
+				<span class="next" id="next">&gt;</span>
+		</div>
+		<script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+		<script>
+			window.onload = function(){
+				var context = document.getElementById("context");//获取context容器
+				var prev = document.getElementById("prev");//获取上一页
+				var next = document.getElementById("next");	//获取下一页
+				var btns = document.getElementById("btns").getElementsByTagName("span"); //获取所有的导航按钮
+				var isTranslate = false;//是否在动画中
+				var index = 1; //索引值
+				//加载canvas  这里有个巨坑，用原生的for循环只能加载最后一个canvas，用jQuery each可以
+				var c = $("#context canvas");
+				var w = parseInt(c.width());
+				var lenght = c.length;				
+				c.each(function(){
+					var imgObj = new Image();
+					var ctx = $(this)[0].getContext("2d");
+					imgObj.onload = function(){
+						ctx.drawImage(this,0,0)
+					}
+					imgObj.src = $(this).attr("data-src");
+				});
+				
+				//初始化加载位置，将第一张图片显示在初始位置
+				context.style["-webkit-transform"] = "translateX("+ -w +"px)"
+				context.style["transform"] = "translateX("+ -w +"px)"	
+				//按键做出相应
+				prev.onclick = function(){
+					if (isTranslate) {
+						//如果有图片在动画中，则阻止本次点击
+						return false;
+					}
+					index--;//当前序号-1
+					showBtn();//显示按钮方法
+					translate(w);//执行动画，将图片的宽度传入translate函数
+				}
+				next.onclick = function(){
+					if (isTranslate) {
+						return false;
+					}
+					index++;
+					showBtn();
+					translate(-w);
+				}
+				//响应导航按钮
+				for (var i = 0; i < btns.length; i++) {
+					//为每个导航按钮绑定点击事件
+					btns[i].onclick = function(){
+						var myCurrentIndex = this.getAttribute("data-index");
+						if (index == myCurrentIndex) {
+							//首先判断点击的span的索引值是否和当前索引一致，一致则终止本次点击事件
+							return false;
+						}
+						translate(-(myCurrentIndex - index) * w);//算出点击的索引和当前索引之间的偏移量，并将该值传入translate函数
+						index = myCurrentIndex;//移动完成后将点击的索引值赋予当前索引index
+						showBtn();//调用显示按钮，将当前为选择
+					}
+				}
+				//显示按钮方法
+				function showBtn()
+				{
+					for (var i = 0; i < lenght; i++) {
+						//首先遍历整个按键
+						if (btns[i].className == "on") {
+							//将有按键的class的值on移出，即将所有的按键的class为on属性全部去掉
+							btns[i].className = "";
+							break;
+						}						
+					}
+					//如果index大于leng+1我们将index设为1
+					//如果index小于1 我们将index设为5 这样实现按键的无限循环
+					index = index == 6 ? 1 : index;
+					index = index == 0 ? 5 : index;
+					//将当前index值对应的className设为on，使其选中状态
+					btns[index-1].className = "on";
+				}				
+				//开始自动播放
+				start();
+				//如果鼠标移上去清楚自动播放
+				context.onmouseover = function(){
+//					清楚定时器，停止自动播放
+					clearInterval(loop);
+				}
+				//鼠标移出开始自动播放
+				context.onmouseout = function(){
+					//鼠标移出后继续执行start方法
+					start();
+				}
+				//动画
+				function translate(val)
+				{
+					//判断context的class是否含有transtion属性  -webkit-transition: all .5s; css3属性，动画
+					//如果没有则增加，作用1.首次加载时候图片动画，2.下面会详细说明。
+					if (context.className.indexOf("transtion") == -1) {
+						context.className +=" transtion";
+					}			
+					//将isTranslate设置为正在动画中
+					isTranslate = true;			
+					//读取当前-webkit-transform 属性中的值，格式大致为："translateX(-520px)"
+					var oldX = context.style["-webkit-transform"] || context.style["transform"];
+					//将改值出入getNum函数，得到里面的数字 -520
+					var oldValue = getNum(oldX);	
+					//设置context的css属性-webkit-transform，如果val为正则进行上一页，反之为下一页
+					context.style["-webkit-transform"] = "translateX("+ (oldValue + val) +"px)";
+					context.style["transform"] = "translateX("+ (oldValue + val) +"px)";	
+					//过.5s后将istranslate设为flase
+					setTimeout(function(){
+						isTranslate = false;		
+					}, 500);
+					
+					/*接下来是无线滚动的关键点
+					 如果当前图片在第一张图片的附属图上，我们将当前显示平移到真正的第一张图片上
+					 为了使用户肉眼无法觉察到，在做这部操作之前我们必须等前面第五张图滚到第一张图附属图上的动画结束之后来执行（.5s）。
+					 并且在平移之前需要先去掉context上的transtion，使整个切换无任何动画，这就是为什么前面会判断context没有class transtion需要加上的原因
+					 首先我们设置一个定时器，.5s后执行将context中class为transtion去掉
+					 然后再将context平移到第一张图片真实位置*/
+					if (oldValue + val == -(lenght-1)*w) {
+						setTimeout(function(){
+							context.className = context.className.replace(/\s*transtion\s*/, "");
+							context.style["-webkit-transform"] = "translateX("+ (-w) +"px)";
+							context.style["transform"] = "translateX("+ (-w) +"px)";
+						}, 500);						
+					}
+					//向上滚动道理和上面一样
+					if (oldValue + val == 0) {
+						setTimeout(function(){
+							context.className = context.className.replace(/\s*transtion\s*/, "");
+							context.style["-webkit-transform"] = "translateX("+ (-(lenght-2)*w) +"px)";
+							context.style["transform"] = "translateX("+ (-(lenght-2)*w) +"px)";
+						}, 500);						
+					}					
+				}
+			
+			function start()
+			{
+				//循环滚动，设置一个定时器，没3s执行一次下一张点击函数
+				loop = setInterval(next.onclick,3000);
+			}
+			
+			}
+			//得到字符串中的数字
+			function getNum(str) 
+			{
+				//通过正则匹配到字符串中带数字的部分，-号有就匹配，没有就算了，然后转为整数
+				var pattern = /-?\d+/;
+				return parseInt(str.match(pattern)[0]);
+			}
+		</script>
+	</body>
+</html>
